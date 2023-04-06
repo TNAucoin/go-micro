@@ -1,24 +1,47 @@
-import logo from './logo.svg';
+
 import './App.css';
+import axios from 'axios';
 
 function App() {
+  const brokerTest = () => {
+    axios.post('http://localhost:8080/', { "test": "test" })
+      .then(response => {
+        document.getElementById('received').innerHTML += `<br/>{JSON.stringify(response.data)}`;
+      })
+      .catch(error => {
+        document.getElementById('output').innerHTML += error;
+      });
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <h1 className="mt-5">Test microservices</h1>
+          <hr />
+          <a onClick={() => {
+            brokerTest()
+          }} id="brokerBtn" className="btn btn-outline-secondary" href="javascript:void(0);">Broker Test</a>
+
+          <div id="output" className="mt-5" style={{ "outline": "1px solid silver", "padding": "2em" }}>
+            <span className="text-muted">Output shows here...</span>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <h4 className="mt-5">Sent</h4>
+          <div className="mt-1" style={{ "outline": "1px solid silver", "padding": "2em" }}>
+            <pre id="payload"><span className="text-muted">Nothing sent yet...</span></pre>
+          </div>
+        </div>
+        <div className="col">
+          <h4 className="mt-5">Received</h4>
+          <div className="mt-1" style={{ "outline": "1px solid silver", "padding": "2em" }}>
+            <pre id="received"><span className="text-muted">Nothing received yet...</span></pre>
+          </div>
+        </div>
+      </div>
+    </div >
   );
 }
 

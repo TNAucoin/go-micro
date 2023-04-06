@@ -12,3 +12,11 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+
+  frontend:
+    build:
+      context: ./../micro-frontend
+      dockerfile: provision/micro-frontend.dockerfile
+    restart: always
+    ports:
+      - "8000:80"
