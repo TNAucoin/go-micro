@@ -1,12 +1,19 @@
 
 import './App.css';
+import Recieved from './components/recieved';
+import Sent from './components/sent';
 import axios from 'axios';
-
+import React, { useState } from 'react';
 function App() {
+  const [recievedData, setRecievedData] = useState([]);
+  const [sentData, setSentData] = useState([]);
+
   const brokerTest = () => {
+    const payload = { "test": "test", "timestamp": Date.now(), "id": Math.random(), "type": "test", "data": "test", "source": "test" };
+    setSentData([...sentData, payload]);
     axios.post('http://localhost:8080/', { "test": "test" })
       .then(response => {
-        document.getElementById('received').innerHTML += `<br/>${JSON.stringify(response.data)}`;
+        setRecievedData([...recievedData, response.data]);
       })
       .catch(error => {
         document.getElementById('output').innerHTML += error;
@@ -16,11 +23,11 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1 className="mt-5">Test microservices</h1>
+          <h1 className="mt-5">🚀Micro-Frontend</h1>
           <hr />
-          <a onClick={() => {
+          <button onClick={() => {
             brokerTest()
-          }} id="brokerBtn" className="btn btn-outline-secondary" href="javascript:void(0);">Broker Test</a>
+          }} id="brokerBtn" className="btn btn-outline-secondary">Broker Test</button>
 
           <div id="output" className="mt-5" style={{ "outline": "1px solid silver", "padding": "2em" }}>
             <span className="text-muted">Output shows here...</span>
@@ -28,18 +35,8 @@ function App() {
         </div>
       </div>
       <div className="row">
-        <div className="col">
-          <h4 className="mt-5">Sent</h4>
-          <div className="mt-1" style={{ "outline": "1px solid silver", "padding": "2em" }}>
-            <pre id="payload"><span className="text-muted">Nothing sent yet...</span></pre>
-          </div>
-        </div>
-        <div className="col">
-          <h4 className="mt-5">Received</h4>
-          <div className="mt-1" style={{ "outline": "1px solid silver", "padding": "2em" }}>
-            <pre id="received"><span className="text-muted">Nothing received yet...</span></pre>
-          </div>
-        </div>
+        <Sent sentData={sentData} />
+        <Recieved data={recievedData} />
       </div>
     </div >
   );
