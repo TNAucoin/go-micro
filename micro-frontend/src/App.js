@@ -6,7 +6,7 @@ function App() {
   const brokerTest = () => {
     axios.post('http://localhost:8080/', { "test": "test" })
       .then(response => {
-        document.getElementById('received').innerHTML += `<br/>{JSON.stringify(response.data)}`;
+        document.getElementById('received').innerHTML += `<br/>${JSON.stringify(response.data)}`;
       })
       .catch(error => {
         document.getElementById('output').innerHTML += error;
