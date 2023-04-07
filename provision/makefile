@@ -6,7 +6,7 @@ up:
 	docker compose up -d
 	@echo "Containers started."
 
-up_build:
+rebuild:
 	@echo "Stopping running containers."
 	docker compose down
 	@echo "Build and restart containers"
