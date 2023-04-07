@@ -1,6 +1,3 @@
-FE_BINARY=frontApp
-BROKER_BINARY=brokerApp
-
 up:
 	@echo "Starting docker."
 	docker compose up -d
