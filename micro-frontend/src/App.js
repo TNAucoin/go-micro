@@ -19,16 +19,30 @@ function App() {
         document.getElementById('output').innerHTML += error;
       });
   }
+
+  const authTest = () => {
+    const payload = { "action": "auth", "auth": { "email": "admin@example.com", "password": "verysecret" } }
+    axios.post('http://localhost:8080/handle', payload)
+      .then(response => {
+        setSentData([...sentData, payload]);
+        setRecievedData([...recievedData, response.data]);
+      })
+      .catch(error => {
+        document.getElementById('output').innerHTML += error;
+      });
+  }
   return (
     <div className="container">
       <div className="row">
         <div className="col">
           <h1 className="mt-5">🚀Micro-Frontend</h1>
           <hr />
-          <button onClick={() => {
-            brokerTest()
-          }} id="brokerBtn" className="btn btn-outline-secondary">Broker Test</button>
-
+          <div className='row'>
+            <button onClick={() => {
+              brokerTest()
+            }} id="brokerBtn" className="btn btn-outline-secondary">Broker Test</button>
+            <button onClick={() => { authTest() }} id="authBtn" className="btn btn-outline-secondary">Auth Test</button>
+          </div>
           <div id="output" className="mt-5" style={{ "outline": "1px solid silver", "padding": "2em" }}>
             <span className="text-muted">Output shows here...</span>
           </div>
