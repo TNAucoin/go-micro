@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "broker-service"
+		},
+		{
+			"path": "provision"
+		},
+		{
+			"path": "micro-frontend"
+		},
+		{
+			"path": "authentication-service"
+		},
+		{
+			"path": "logger-service"
+		}
+	]
+}

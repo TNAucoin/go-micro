@@ -31,6 +31,18 @@ function App() {
         document.getElementById('output').innerHTML += error;
       });
   }
+
+  const logTest = () => {
+    const payload = { "action": "log", "log": { "name": "event", "data": "some kind of data" } }
+    axios.post('http://localhost:8080/handle', payload)
+      .then(response => {
+        setSentData([...sentData, payload]);
+        setRecievedData([...recievedData, response.data]);
+      })
+      .catch(error => {
+        document.getElementById('output').innerHTML += error;
+      });
+  }
   return (
     <div className="container">
       <div className="row">
@@ -42,6 +54,7 @@ function App() {
               brokerTest()
             }} id="brokerBtn" className="btn btn-outline-secondary">Broker Test</button>
             <button onClick={() => { authTest() }} id="authBtn" className="btn btn-outline-secondary">Auth Test</button>
+            <button onClick={() => { logTest() }} id="logBtn" className="btn btn-outline-secondary">Log Test</button>
           </div>
           <div id="output" className="mt-5" style={{ "outline": "1px solid silver", "padding": "2em" }}>
             <span className="text-muted">Output shows here...</span>
